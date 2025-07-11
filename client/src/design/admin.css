@@ -1,0 +1,51 @@
+.adminpage {
+  padding: 24px;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f5f5f5;
+}
+
+.clg-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.course-block {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.course-block p {
+  margin: 4px 0;
+}
+
+.course-block ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type:circle;
+  font-size: 15px;
+}
+.sem-block{
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.sem-block p{
+  margin: 4px 0;
+  font-size: 18px;
+}
+.sem-block ul{
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: circle;
+  font-size: 13px;
+}
+.sub-block{
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.sub-block p{
+  margin: 4px 0;
+  font-size: 15px;
+}

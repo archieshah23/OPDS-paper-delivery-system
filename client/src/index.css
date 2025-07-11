@@ -1,0 +1,210 @@
+/* @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+  box-shadow: inset;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+:root {
+  --primary-color: #1c2833;
+  --secondary-color: #fff;
+  --bg-color: #f2f3f4;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 900;
+}
+
+h1 {
+  font-size: 4.2rem;
+  font-weight: bold;
+  margin-bottom: 1.6rem;
+}
+
+body {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  background-color: #f7f7f7;
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 20px;
+  width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: white;
+  -webkit-box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+  -moz-box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+  box-shadow: 2px 1px 21px -9px rgba(0, 0, 0, 0.38);
+}
+
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+}
+
+input[type="select"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f7f7f7;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="tel"]:focus {
+
+  outline: none;
+}
+
+ button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  font-size: 16px;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  border-radius: 10px;
+} 
+
+button:hover {
+  opacity: 1;
+}
+
+span {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0.6rem;
+  color: #0c0c0c;
+}
+label,
+p {
+  font-size: 1.6rem;
+}
+p {
+  font-size: 1.8rem;
+}
+
+
+@media screen and (max-width: 300px) {
+  .signupbtn {
+    width: 100%;
+  }
+}
+
+.container {
+  width: 600px;
+  margin: 50px auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.container:hover{
+          box-shadow: 5px 5px 5px  gray;
+}
+
+.container h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+select{
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+.multi-option{
+  border-radius: 8px;
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+.container a {
+  text-decoration: none;
+}
+
+.container a:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 0;
+  margin-top: 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+.clearfix {
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 20px;
+  }
+
+  .container h1 {
+    font-size: 24px;
+  }
+} */
