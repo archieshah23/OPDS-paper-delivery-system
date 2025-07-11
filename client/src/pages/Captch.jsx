@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
+import { TfiReload } from "react-icons/tfi";
 export const Captcha = ({ onTextChange }) => {
   const canvasref = useRef(null);
   const [captchaText, setCaptchaText] = useState("");
@@ -49,22 +49,23 @@ export const Captcha = ({ onTextChange }) => {
         style={{
           border: "1px solid #ccc",
           borderRadius: "5px",
-          marginBottom: "10px",
+          margin: "10px",
+          //   marginBottom: "0px",
         }}
       />
-      <br />
       <button
         type="button"
         onClick={generateCaptcha}
         style={{
           padding: "5px 12px",
-          backgroundColor: "green",
-          color: "#fff",
           border: "none",
           borderRadius: "5px",
+          display: "flex",
+          cursor: "pointer",
+          fontSize: "20px",
         }}
       >
-        Reload
+        <TfiReload />
       </button>
     </div>
   );

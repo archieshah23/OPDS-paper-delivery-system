@@ -13,7 +13,7 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<Registration />}></Route>
       <Route path="/login" element={<LoginForm />}></Route>
-      <Route path="/college-register" element={<CollegeRegister />} />
+      <Route path="/clg-register" element={<CollegeRegister />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/supervisor" element={<Supervisor />} />
       <Route path="/clg-admin" element={<ClgAdmin />} />

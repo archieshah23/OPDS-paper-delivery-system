@@ -173,7 +173,8 @@ app.post('/api/register-user', async (req, res) => {
       college,
     });
 
-    const verificationLink = `http://localhost:3000/api/verify?token=${token}`;
+    // const verificationLink = `http://localhost:3000/api/verify?token=${token}`;
+        const verificationLink = `http://192.168.0.17:3000/api/verify?token=${token}`;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',

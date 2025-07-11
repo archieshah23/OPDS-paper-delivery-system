@@ -33,6 +33,7 @@
 }
 
 .login-page input[type="email"],
+.login-page input[type="text"],
 .login-page input[type="password"] {
   width: 100%;
   padding: 10px 12px;
@@ -84,7 +85,7 @@
   background-color: #45a049;
 }
 .input-error {
-  border: 2px solid #f00;
+border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 15px;

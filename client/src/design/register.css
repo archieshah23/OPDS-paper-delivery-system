@@ -88,7 +88,7 @@
   text-decoration: underline;
 }
 .input-error {
-  border: 2px solid #f00;
+  /* border: 2px solid #f00; */
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 15px;

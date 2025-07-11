@@ -71,31 +71,35 @@ export const LoginForm = () => {
         <div className="card">
           <h1>Login Form</h1>
           <form onSubmit={handleFormSubmit}>
-            <label htmlFor="email">EmailId: </label>
-            <input
-              type="email"
-              name="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              autoComplete="off"
-            />
+            <div>
+              <label htmlFor="email">EmailId: </label>
+              <input
+                type="email"
+                name="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
 
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              name="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="off"
-            />
+            <div>
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                name="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="off"
+              />
+            </div>
 
             <div>
               <Captcha onTextChange={setCaptchaText} />
               <input
-                type="text"
                 className="input-error"
+                type="text"
                 placeholder="Enter the text shown in the image"
                 value={captchaInput}
                 onChange={(e) => setCaptchaInput(e.target.value)}
@@ -114,7 +118,9 @@ export const LoginForm = () => {
               <Link to="/">signup</Link>
             </div>
 
-            <button type="submit">Login</button>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
           </form>
         </div>
       </div>

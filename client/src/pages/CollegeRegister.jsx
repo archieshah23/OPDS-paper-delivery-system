@@ -3,11 +3,14 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 // import "../index.css";
 import "../design/clg_register.css";
+import { Captcha } from "./Captch";
 
 export const CollegeRegister = () => {
   const [clgname, setClgname] = useState("");
   const [macadd, setMacadd] = useState("");
   const [courses, setCourses] = useState([]);
+  const [captchaInput, setCaptchaInput] = useState("");
+  const [captchaText, setCaptchaText] = useState("");
 
   const handleInputchange = (event) => {
     const { name, value } = event.target;
@@ -27,18 +30,12 @@ export const CollegeRegister = () => {
     setCourses(selectedOptions);
   };
 
-  // const handleFormsubmit = (event) => {
-  //   event.preventDefault();
-  //   const clgdata = {
-  //     clgname,
-  //     macadd,
-  //     courses: courses.map((course) => course.value),
-  //   };
-  //   console.log(clgdata);
-  // };
   const handleFormsubmit = async (event) => {
     event.preventDefault();
-
+    if (captchaInput.trim() !== captchaText) {
+      alert("invalid captcha try again!!");
+      return;
+    }
     const clgdata = {
       clgname,
       macadd,
@@ -124,6 +121,17 @@ export const CollegeRegister = () => {
               options={courseOptions}
               onChange={handleCoursesChange}
               placeholder="Select courses offered"
+            />
+          </div>
+
+          <div>
+            <Captcha onTextChange={setCaptchaText} />
+            <input
+              type="text"
+              placeholder="Enter text shown in the image"
+              value={captchaInput}
+              onChange={(e) => setCaptchaInput(e.target.value)}
+              required
             />
           </div>
 
