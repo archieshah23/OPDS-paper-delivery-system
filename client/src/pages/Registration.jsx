@@ -271,7 +271,7 @@ export const Registration = () => {
             <input
               className="input-error"
               type="text"
-              placeholder="Enter the text shown in the image"
+              placeholder="Enter  text shown in the image"
               value={captchaInput}
               onChange={(e) => setCaptchaInput(e.target.value)}
               required

@@ -11,7 +11,6 @@ export const CollegeRegister = () => {
   const [courses, setCourses] = useState([]);
   const [captchaInput, setCaptchaInput] = useState("");
   const [captchaText, setCaptchaText] = useState("");
-
   const handleInputchange = (event) => {
     const { name, value } = event.target;
     switch (name) {
@@ -33,7 +32,7 @@ export const CollegeRegister = () => {
   const handleFormsubmit = async (event) => {
     event.preventDefault();
     if (captchaInput.trim() !== captchaText) {
-      alert("invalid captcha try again!!");
+      alert("invalid captcha please try again!!");
       return;
     }
     const clgdata = {

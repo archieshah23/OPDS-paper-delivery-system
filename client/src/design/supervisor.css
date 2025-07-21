@@ -1,6 +1,5 @@
 .sup {
   padding: 24px;
-  /* font-family: "Segoe UI", sans-serif; */
   background: #f9f9f9;
   display: flex;
   justify-content: center;
@@ -29,7 +28,7 @@ h2 {
   align-items: center;
   font-weight: bold;
   font-size: 18px;
-  color: #007bff;
+  color: black;
   margin-bottom: 8px;
 }
 
@@ -82,7 +81,7 @@ h2 {
   text-overflow: ellipsis;
 }
 .upload-btn {
-  background-color: #007bff;
+  background-color: #5b5c5e;
   border: none;
   border-radius: 50%;
   width: 28px;
