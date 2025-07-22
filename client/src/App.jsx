@@ -5,6 +5,7 @@ import { ClgDean } from "./pages/ClgDean";
 import { CollegeRegister } from "./pages/CollegeRegister";
 import { ErrorPage } from "./pages/ErrorPage";
 import { LoginForm } from "./pages/LoginForm";
+import { OtpVerification } from "./pages/OtpVerification";
 import { Registration } from "./pages/Registration";
 import { Supervisor } from "./pages/Supervisor";
 
@@ -18,6 +19,7 @@ export const App = () => {
       <Route path="/supervisor" element={<Supervisor />} />
       <Route path="/clg-admin" element={<ClgAdmin />} />
       <Route path="/clg-dean" element={<ClgDean />} />
+      <Route path="/otp" element={<OtpVerification />} />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

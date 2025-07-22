@@ -267,16 +267,23 @@ export const Registration = () => {
           </div>
 
           <div>
-            <Captcha onTextChange={setCaptchaText} />
-            <input
-              className="input-error"
-              type="text"
-              placeholder="Enter  text shown in the image"
-              value={captchaInput}
-              onChange={(e) => setCaptchaInput(e.target.value)}
-              required
-            />
+            <label>
+              <b>Captcha:</b>
+            </label>
+            <div className="captcha-inline-group">
+              <Captcha onTextChange={setCaptchaText} />
+              <input
+                className="input-error"
+                type="text"
+                placeholder="Enter text shown in the image"
+                value={captchaInput}
+                onChange={(e) => setCaptchaInput(e.target.value)}
+                required
+                style={{ flex: "1" }}
+              />
+            </div>
           </div>
+
           <p style={{ marginLeft: "180px", marginTop: "20px", color: "grey" }}>
             College not registered?{" "}
             <Link to="/college-register" style={{ color: "blue" }}>

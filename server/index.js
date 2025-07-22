@@ -13,7 +13,6 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 require('dotenv').config();
 
-
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };
@@ -30,14 +29,13 @@ const corsOptions = {
   },
   credentials: true,
 };
+app.use(express.json());
 
 app.use(cors(corsOptions));
-
 app.use((req, res, next) => {
   console.log(`[${req.method}] ${req.originalUrl} from ${req.headers.origin}`);
   next();
 });
-
 app.use(bodyparser.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 function generateToken() {
@@ -142,7 +140,6 @@ app.post('/api/register-college', async (req, res) => {
 });
 
 const pendingUsers = new Map(); // stores users temporarily
-
 app.post('/api/register-user', async (req, res) => {
   const { firstname, lastname, email, phone, password, category, college } = req.body;
   const hashPass=await bcrypt.hash(password, saltRounds);
@@ -262,6 +259,44 @@ app.get('/api/verify', async (req, res) => {
   }
 });
 
+const otpStore = new Map(); // Stores { email: { otp, expiresAt } }
+
+app.post('/api/send-otp', async (req, res) => {
+  const { email } = req.body;
+  const otp = Math.floor(1000 + Math.random() * 9000).toString(); // 4-digit OTP
+  const expiresAt = Date.now() + 5 * 60 * 1000; // valid for 5 min
+
+  otpStore.set(email, { otp, expiresAt });
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: 'your_email@gmail.com',
+    to: email,
+    subject: 'Your OTP Code',
+    html: `<p>Your OTP is: <b>${otp}</b>. It is valid for 5 minutes.</p>`,
+  });
+
+res.status(200).json({ success: true, message: 'OTP sent to email' });
+
+});
+app.post('/api/verify-otp', (req, res) => {
+  const { email, otp } = req.body;
+  const record = otpStore.get(email);
+
+  if (!record) return res.status(400).json({ message: 'OTP not requested' });
+  if (Date.now() > record.expiresAt) return res.status(400).json({ message: 'OTP expired' });
+  if (record.otp !== otp) return res.status(400).json({ message: 'Invalid OTP' });
+
+  otpStore.delete(email);
+  res.json({ message: 'OTP verified' });
+});
 
 app.get('/api/users', async (req, res) => {
   try {
@@ -353,8 +388,6 @@ app.get('/api/documents-with-subjects', async (req, res) => {
     res.status(500).json({ message: "Failed to fetch documents" });
   }
 });
-
-
 
 app.get('/api/courses', async (req, res) => {
   try {

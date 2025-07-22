@@ -65,3 +65,42 @@
 .college-register-btn:hover {
   background-color: #45a049;
 }
+
+.captcha-inline-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.captcha-canvas {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.captcha-refresh {
+  padding: 6px 10px;
+  height: 40px;
+  border: none;
+  background-color: #eaeaea;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.captcha-refresh:hover {
+  background-color: #ccc;
+}
+
+.captcha-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}

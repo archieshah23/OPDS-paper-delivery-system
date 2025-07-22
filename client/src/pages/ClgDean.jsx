@@ -1,65 +1,103 @@
 import { useEffect, useState } from "react";
 import "../design/clg.css";
+import { OtpVerification } from "./OtpVerification";
+
 export const ClgDean = () => {
-  const [pin, setPin] = useState("");
-  const [unlocked, setUnlocked] = useState(false);
-  const [college, setCollege] = useState([]);
-  const [documents, setDocuments] = useState([]);
-  const correctPin = "1234";
-
   const user = JSON.parse(sessionStorage.getItem("user"));
-  const colllegeId = user?.college_id;
-  // console.log(colllegeId);
+  const [otp, setOtp] = useState(new Array(4).fill(""));
+  const [serverOtp, setServerOtp] = useState("");
+  const [unlocked, setUnlocked] = useState(false);
+  const [college, setCollege] = useState(null);
+  const [documents, setDocuments] = useState([]);
 
-  const handleSubmit = (e) => {
+  const collegeId = user?.college_id;
+  const email = user?.email || "";
+
+  const handleGetOtp = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert("OTP sent to your email.");
+      } else {
+        alert("Failed to send OTP.");
+      }
+    } catch (err) {
+      console.error("Error sending OTP:", err);
+      alert("Something went wrong.");
+    }
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (pin === correctPin) {
-      setUnlocked(true);
-    } else {
-      alert("Incorrect PIN");
+    const enteredOtp = otp.join("");
+
+    try {
+      const res = await fetch("http://localhost:3000/api/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: enteredOtp }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setUnlocked(true);
+      } else {
+        alert("Incorrect OTP");
+      }
+    } catch (err) {
+      console.error("Error verifying OTP:", err);
+      alert("Something went wrong.");
     }
   };
   useEffect(() => {
-    const collegeData = async () => {
+    const fetchCollege = async () => {
       try {
         const response = await fetch("http://localhost:3000/api/colleges");
         const data = await response.json();
         if (response.ok) {
-          const fetchId = data.colleges.find((c) => c.id === colllegeId);
-          setCollege(fetchId);
+          const foundCollege = data.colleges.find((c) => c.id === collegeId);
+          setCollege(foundCollege);
         } else {
-          console.error("Cant connect", data.message);
+          console.error("Fetch college error:", data.message);
         }
-      } catch (error) {
-        console.error("error", error);
+      } catch (err) {
+        console.error("Error fetching colleges:", err);
       }
     };
-    collegeData();
-  }, [colllegeId]);
+    if (collegeId) fetchCollege();
+  }, [collegeId]);
 
   useEffect(() => {
-    const fetchDocument = async () => {
+    const fetchDocuments = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/documents-with-subjects?collegeId=${colllegeId}`
+          `http://localhost:3000/api/documents-with-subjects?collegeId=${collegeId}`
         );
         const data = await res.json();
-        console.log(data, colllegeId);
         if (res.ok && data.files) {
-          const filterdocs = data.files.filter(
-            (doc) => doc.college_id === colllegeId
+          const filtered = data.files.filter(
+            (doc) => doc.college_id === collegeId
           );
-          setDocuments(filterdocs);
+          setDocuments(filtered);
         }
       } catch (error) {
-        console.error("failed to fetch documents", error);
+        console.error("Failed to fetch documents", error);
       }
     };
 
-    if (unlocked && colllegeId) {
-      fetchDocument();
+    if (unlocked && collegeId) {
+      fetchDocuments();
     }
-  }, [unlocked, colllegeId]);
+  }, [unlocked, collegeId]);
+
+  if (!user) {
+    return <p>User session not found. Please login again.</p>;
+  }
 
   return (
     <div className="clg-dean-page">
@@ -69,18 +107,14 @@ export const ClgDean = () => {
           <h2 className="clg-name">
             College name: {college ? college.name : "Loading..."}
           </h2>
-          <input
-            className="otp"
-            type="password"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-            placeholder="Enter 4-digit PIN"
-            maxLength={4}
-            required
-          />
+
+          <OtpVerification otpValue={otp} setOtpValue={setOtp} />
+
           <div className="button-clg">
-            <button>Get OTP</button>
-            <button type="submit" disabled={pin.length !== 4}>
+            <button type="button" onClick={handleGetOtp}>
+              Get OTP
+            </button>
+            <button type="submit" disabled={otp.includes("")}>
               Unlock
             </button>
           </div>
@@ -92,24 +126,22 @@ export const ClgDean = () => {
             <p>No documents uploaded yet.</p>
           ) : (
             <ul className="documents">
-              {documents
-                .filter((doc) => doc)
-                .map((doc, idx) => (
-                  <li key={idx}>
-                    <strong>{doc.subject_name}</strong> ({doc.college_name} -{" "}
-                    {doc.course_name} - {doc.semester_name})
-                    <br />
-                    <button>
-                      <a
-                        href={`http://localhost:3000/uploads/${doc.file_name}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {doc.file_name}
-                      </a>
-                    </button>
-                  </li>
-                ))}
+              {documents.map((doc, idx) => (
+                <li key={idx}>
+                  <strong>{doc.subject_name}</strong> ({doc.college_name} -{" "}
+                  {doc.course_name} - {doc.semester_name})
+                  <br />
+                  <button>
+                    <a
+                      href={`http://localhost:3000/uploads/${doc.file_name}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {doc.file_name}
+                    </a>
+                  </button>
+                </li>
+              ))}
             </ul>
           )}
         </div>

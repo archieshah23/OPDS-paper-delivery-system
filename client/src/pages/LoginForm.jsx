@@ -96,15 +96,20 @@ export const LoginForm = () => {
             </div>
 
             <div>
-              <Captcha onTextChange={setCaptchaText} />
-              <input
-                className="input-error"
-                type="text"
-                placeholder="Enter text shown in the image"
-                value={captchaInput}
-                onChange={(e) => setCaptchaInput(e.target.value)}
-                required
-              />
+              <label>
+                <b>Captcha:</b>
+              </label>
+              <div className="captcha-inline-group">
+                <Captcha onTextChange={setCaptchaText} />
+                <input
+                  className="captcha-input"
+                  type="text"
+                  placeholder="Enter text shown in the image"
+                  value={captchaInput}
+                  onChange={(e) => setCaptchaInput(e.target.value)}
+                  required
+                />
+              </div>
             </div>
 
             {/* <p style={{ marginLeft: "350px" }}>

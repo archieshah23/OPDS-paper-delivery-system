@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { TfiReload } from "react-icons/tfi";
+import "../design/register.css";
+
 export const Captcha = ({ onTextChange }) => {
-  const canvasref = useRef(null);
+  const canvasRef = useRef(null);
   const [captchaText, setCaptchaText] = useState("");
 
   const generateCaptcha = () => {
@@ -20,10 +22,10 @@ export const Captcha = ({ onTextChange }) => {
   }, []);
 
   useEffect(() => {
-    const canvas = canvasref.current;
+    const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.font = "24px Georgia";
+    ctx.font = "24px Arial";
     ctx.fillStyle = "#000";
 
     for (let i = 0; i < 15; i++) {
@@ -31,6 +33,7 @@ export const Captcha = ({ onTextChange }) => {
       ctx.arc(Math.random() * 120, Math.random() * 40, 1, 0, 2 * Math.PI);
       ctx.fill();
     }
+
     captchaText.split("").forEach((char, i) => {
       ctx.save();
       ctx.translate(10 + i * 18, 25);
@@ -40,30 +43,19 @@ export const Captcha = ({ onTextChange }) => {
       ctx.restore();
     });
   }, [captchaText]);
+
   return (
-    <div style={{ textAlign: "center", marginBottom: "20px" }}>
+    <div className="captcha-inline-group">
       <canvas
-        ref={canvasref}
+        ref={canvasRef}
         width="140"
         height="40"
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "5px",
-          margin: "10px",
-          //   marginBottom: "0px",
-        }}
+        className="captcha-canvas"
       />
       <button
         type="button"
         onClick={generateCaptcha}
-        style={{
-          padding: "5px 12px",
-          border: "none",
-          borderRadius: "5px",
-          display: "flex",
-          cursor: "pointer",
-          fontSize: "20px",
-        }}
+        className="captcha-refresh"
       >
         <TfiReload />
       </button>

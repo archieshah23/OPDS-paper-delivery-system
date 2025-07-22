@@ -124,14 +124,20 @@ export const CollegeRegister = () => {
           </div>
 
           <div>
-            <Captcha onTextChange={setCaptchaText} />
-            <input
-              type="text"
-              placeholder="Enter text shown in the image"
-              value={captchaInput}
-              onChange={(e) => setCaptchaInput(e.target.value)}
-              required
-            />
+            <label>
+              <b>Captcha:</b>
+            </label>
+            <div className="captcha-inline-group">
+              <Captcha onTextChange={setCaptchaText} />
+              <input
+                className="captcha-input"
+                type="text"
+                placeholder="Enter text shown in the image"
+                value={captchaInput}
+                onChange={(e) => setCaptchaInput(e.target.value)}
+                required
+              />
+            </div>
           </div>
 
           <button type="submit" className="college-register-btn">

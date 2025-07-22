@@ -90,3 +90,42 @@ border: 1px solid #ccc;
   padding: 5px;
   margin-bottom: 15px;
 }
+
+.captcha-inline-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.captcha-canvas {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-page .captcha-refresh {
+  width: auto;
+  background-color: #ffffff !important;
+  color: #333 !important;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  font-size: 18px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.captcha-refresh:hover {
+  background-color: #f0f0f0;
+  color: #4caf50;
+}
+.captcha-input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+}
