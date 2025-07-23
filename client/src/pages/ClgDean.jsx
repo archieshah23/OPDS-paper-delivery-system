@@ -5,7 +5,7 @@ import { OtpVerification } from "./OtpVerification";
 export const ClgDean = () => {
   const user = JSON.parse(sessionStorage.getItem("user"));
   const [otp, setOtp] = useState(new Array(4).fill(""));
-  const [serverOtp, setServerOtp] = useState("");
+  // const [serverOtp, setServerOtp] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [college, setCollege] = useState(null);
   const [documents, setDocuments] = useState([]);

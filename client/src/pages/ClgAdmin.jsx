@@ -1,21 +1,55 @@
 import { useEffect, useState } from "react";
 import "../design/clg_admin.css";
+import { OtpVerification } from "./OtpVerification";
 export const ClgAdmin = () => {
   const [pin, setPin] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [college, setCollege] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [otp, setOtp] = useState(new Array(4).fill(""));
   const correctPin = "5678";
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const collegeId = Number(user?.college_id);
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const collegeId = user?.college_id;
+  const email = user?.email || "";
 
-  const handleSubmit = (e) => {
+  const handleGetOtp = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/send-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        alert("OTP sent to your email");
+      } else {
+        alert("Failed to send otp");
+      }
+    } catch (err) {
+      console.error("Error sending otp: ", err);
+      alert("Something went wrong");
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (pin === correctPin) {
-      setUnlocked(true);
-    } else {
-      alert("Incorrect PIN");
+    const enteredOtp = otp.join("");
+    try {
+      const res = await fetch("http://localhost:3000/api/verify-otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: enteredOtp }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setUnlocked(true);
+      } else {
+        alert("Incorrect OTP");
+      }
+    } catch (err) {
+      console.error("Error verifying otp:", err);
+      alert("Something went wrong.");
     }
   };
 
@@ -56,14 +90,18 @@ export const ClgAdmin = () => {
           const thiscollege = data.colleges.find((c) => c.id === collegeId);
           setCollege(thiscollege);
         } else {
-          console.error("Cant connect", data.message);
+          console.error("fetch college error", data.message);
         }
       } catch (error) {
-        console.error("Error", error);
+        console.error("Error fetching colleges", error);
       }
     };
-    fetchCollege();
+    if (collegeId) fetchCollege();
   }, [collegeId]);
+
+  if (!user) {
+    return <p>User session not found. Please login again.</p>;
+  }
 
   return (
     <div className="clg-admin-page">
@@ -73,18 +111,14 @@ export const ClgAdmin = () => {
           <h2 className="clg-name">
             College Name: {college ? college.name : "Loading.."}
           </h2>
-          <input
-            className="otp"
-            type="password"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-            placeholder="Enter 4-digit PIN"
-            maxLength={4}
-            required
-          />
+
+          <OtpVerification otpValue={otp} setOtpValue={setOtp} />
+
           <div className="button-clg">
-            <button>Get OTP</button>
-            <button type="submit" disabled={pin.length !== 4}>
+            <button type="button" onClick={handleGetOtp}>
+              Get OTP
+            </button>
+            <button type="submit" disabled={otp.includes("")}>
               Unlock
             </button>
           </div>

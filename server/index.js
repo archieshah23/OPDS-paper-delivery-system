@@ -170,8 +170,8 @@ app.post('/api/register-user', async (req, res) => {
       college,
     });
 
-    // const verificationLink = `http://localhost:3000/api/verify?token=${token}`;
-        const verificationLink = `http://192.168.0.17:3000/api/verify?token=${token}`;
+    const verificationLink = `http://localhost:3000/api/verify?token=${token}`;
+        // const verificationLink = `http://192.168.0.17:3000/api/verify?token=${token}`;
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -290,12 +290,12 @@ app.post('/api/verify-otp', (req, res) => {
   const { email, otp } = req.body;
   const record = otpStore.get(email);
 
-  if (!record) return res.status(400).json({ message: 'OTP not requested' });
-  if (Date.now() > record.expiresAt) return res.status(400).json({ message: 'OTP expired' });
-  if (record.otp !== otp) return res.status(400).json({ message: 'Invalid OTP' });
+  if (!record) return res.status(400).json({ success: false, message: 'OTP not requested' });
+  if (Date.now() > record.expiresAt) return res.status(400).json({ success: false, message: 'OTP expired' });
+  if (record.otp !== otp) return res.status(400).json({ success: false, message: 'Invalid OTP' });
 
   otpStore.delete(email);
-  res.json({ message: 'OTP verified' });
+  return res.status(200).json({ success: true, message: 'OTP verified' });
 });
 
 app.get('/api/users', async (req, res) => {
