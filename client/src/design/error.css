@@ -1,0 +1,71 @@
+/* Layout */
+.error-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #c5c2c2, #8a8989);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Typography */
+.error-title {
+  font-size: 4rem;
+  color: #060606;
+  margin-bottom: 0.5rem;
+  animation: bounce 1s infinite alternate;
+}
+
+.error-subtitle {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.error-code {
+  font-size: 1.25rem;
+  color: #7a7a7a;
+  margin-bottom: 2rem;
+}
+
+/* Image */
+.error-image {
+  width: 300px;
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.error-image:hover {
+  transform: scale(1.05);
+}
+
+/* Button */
+.error-btn {
+  display: inline-block;
+  background-color: #2f2c2c;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.error-btn:hover {
+  background-color: #c13b3b;
+}
+
+/* Animation */
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-8px);
+  }
+}
